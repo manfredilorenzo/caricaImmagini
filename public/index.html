@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Caricamento File</title>
+</head>
+<body>
+<h2>Carica un file</h2>
+<input type="file" id="fileInput">
+<button onclick="caricaFile()">Carica</button>
+
+<script>
+function caricaFile() {
+  const fileInput = document.getElementById('fileInput');
+  
+  if (fileInput.files.length === 0) {
+    alert('Nessun file selezionato.');
+    return;
+  }
+  
+  const file = fileInput.files[0];
+  const formData = new FormData();
+  formData.append('file', file);
+  
+  fetch('/upload', {
+  method: 'POST',
+  body: formData
+})
+.then(response => {
+  if (!response.ok) {
+    throw new Error('Errore durante il caricamento del file.');
+  }
+  return response.text(); 
+})
+.then(data => {
+  console.log('Risposta del server:', data);
+  alert('File caricato con successo.');
+})
+.catch(error => {
+  console.error('Errore:', error);
+  alert('Si è verificato un errore durante il caricamento del file.');
+});
+
+}
+
+</script>
+</body>
+</html>
