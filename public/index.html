@@ -22,7 +22,9 @@ function caricaFile() {
   const file = fileInput.files[0];
   const formData = new FormData();
   formData.append('file', file);
-  
+  //così potete assegnare al file caricato una variabile e trovarlo più facilmente, nel mio progetto ho messo il nome dell'annuncio così con il nome trovavo entrambi.
+  //formData.append('file', file, nomeVariabile + ".jpg"); //metto il nome immagine come il nome annuncio, per recupero in render
+
   fetch('/upload', {
   method: 'POST',
   body: formData
@@ -43,6 +45,9 @@ function caricaFile() {
 });
 
 }
+
+
+
 
 </script>
 </body>
